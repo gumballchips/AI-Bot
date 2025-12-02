@@ -16,10 +16,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Read the key from environment (set this locally in .env or in Actions secrets)
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
+
+// If running in CI or production, require the key and exit if missing.
+// This avoids confusing runs in CI and prevents accidental missing-key deployments.
+const runningInCI = process.env.GITHUB_ACTIONS === "true";
+const runningInProd = process.env.NODE_ENV === "production";
+
 if (!OPENAI_KEY) {
-  console.warn("WARNING: OPENAI_API_KEY is not set. Set it in your .env file.");
+  if (runningInCI || runningInProd) {
+    console.error("ERROR: OPENAI_API_KEY is not set. In CI/production this is required. Please add it as a repository secret (OPENAI_API_KEY) or set NODE_ENV accordingly.");
+    process.exit(1);
+  } else {
+    console.warn("WARNING: OPENAI_API_KEY is not set. Set it in your .env file for local development, or as a repository secret for Actions/production.");
+  }
 }
+
 const MODEL = process.env.OPENAI_MODEL || "gpt-4";
 
 const client = new OpenAI({ apiKey: OPENAI_KEY });
