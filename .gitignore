@@ -1,0 +1,11 @@
+# Local env file (contains secrets)
+.env
+
+# Node modules and runtime artifacts
+node_modules/
+npm-debug.log
+.DS_Store
+
+# Local DB / vector store (if using SQLite or local data)
+data/
+*.sqlite
