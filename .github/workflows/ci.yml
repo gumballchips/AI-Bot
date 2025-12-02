@@ -8,7 +8,6 @@ on:
 jobs:
   secret-check:
     runs-on: ubuntu-latest
-    # inject the repository secret into the job environment
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
@@ -21,12 +20,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Verify OPENAI_API_KEY secret is available
         run: node scripts/check-secret.js
 
       - name: Run basic lint/test (optional)
-        # This step is optional — replace with your real tests or build steps.
         run: |
           echo "No tests configured — secret check passed."
