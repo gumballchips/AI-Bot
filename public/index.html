@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Chat — Strong Assistant</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>AI Chat — Strong Assistant</h1>
+    </header>
+
+    <main>
+      <div class="controls">
+        <label for="model">Model (optional):</label>
+        <input id="model" placeholder="Leave blank to use server default" />
+        <button id="list-docs">List KB Docs</button>
+      </div>
+
+      <div id="chat" class="chat"></div>
+
+      <form id="chat-form" class="chat-form">
+        <input id="input" autocomplete="off" placeholder="Ask me anything..." />
+        <button type="submit">Send</button>
+      </form>
+
+      <section class="kb">
+        <h2>Knowledge Base — Add a document</h2>
+        <input id="doc-title" placeholder="Title (optional)" />
+        <textarea id="doc-content" placeholder="Paste document text here"></textarea>
+        <button id="add-doc">Add to KB</button>
+        <div id="kb-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Powered by your LLM provider via backend proxy — documents you add stay local to the server.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
